@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://cubokuke22wad"]
+
+[ext_resource type="Texture2D" uid="uid://b4kq58jy3515k" path="res://assets/Characters/4 - Robo Pumpkin/Hurt (16 x 16).png" id="1_88kqm"]
+[ext_resource type="Script" path="res://scripts/Characters/enemy.gd" id="1_aybcl"]
+[ext_resource type="Texture2D" uid="uid://d4be11oielpqq" path="res://assets/Characters/4 - Robo Pumpkin/Walking (16 x 16).png" id="1_jwt8y"]
+[ext_resource type="Texture2D" uid="uid://irka4bugcl7i" path="res://assets/Characters/4 - Robo Pumpkin/Standing (16 x 16).png" id="2_uspva"]
+[ext_resource type="PackedScene" uid="uid://0wn13bx12tqy" path="res://scenes/utils/hitbox.tscn" id="5_2ns8i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e5tx"]
+atlas = ExtResource("1_jwt8y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6072a"]
+atlas = ExtResource("1_jwt8y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4f3n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_88kqm")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e5tx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_uspva")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6072a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e5tx")
+}],
+"loop": false,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rlfht"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ychim"]
+size = Vector2(10, 1.5)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_aybcl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_y4f3n")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_rlfht")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(-8, 0)
+collision_mask = 6
+
+[node name="Hitbox" parent="." instance=ExtResource("5_2ns8i")]
+position = Vector2(0, 0)
+
+[node name="Collision_Hit" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -11.25)
+shape = SubResource("RectangleShape2D_ychim")
+debug_color = Color(0.992157, 0, 0.247059, 0.419608)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
