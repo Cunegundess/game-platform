@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://binerg06srl4r"]
+
+[ext_resource type="Texture2D" uid="uid://bhda703d3iyxt" path="res://assets/Objects/brick-pieces/Spike.png" id="1_0xtjs"]
+[ext_resource type="Script" path="res://scripts/objects/spike_area.gd" id="1_uhyph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwgnx"]
+
+[node name="Spike_Area" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_uhyph")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("1_0xtjs")
+region_enabled = true
+region_rect = Rect2(0, 8, 360, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xwgnx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

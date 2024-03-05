@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://4jfb6c5qaitu"]
+
+[ext_resource type="Texture2D" uid="uid://clngdjmksvhfo" path="res://assets/Tilesets/5 - Misc. universal tiles/Blocks (16 x 16).png" id="1_80cx2"]
+[ext_resource type="Script" path="res://scripts/objects/falling_platform.gd" id="1_qc2b1"]
+[ext_resource type="AudioStream" uid="uid://cpy1cldb3dlc5" path="res://assets/sounds/falling.wav" id="3_8r6ib"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8f8bm"]
+size = Vector2(32, 16)
+
+[sub_resource type="Animation" id="Animation_djwoc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Blocks(16X16):position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qlihv"]
+resource_name = "shake"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Blocks(16X16):position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.5, 0), Vector2(0, 0), Vector2(-1.5, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1x3bo"]
+_data = {
+"RESET": SubResource("Animation_djwoc"),
+"shake": SubResource("Animation_qlihv")
+}
+
+[node name="Falling_Platform" type="AnimatableBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_qc2b1")
+
+[node name="Blocks(16X16)" type="Sprite2D" parent="."]
+texture = ExtResource("1_80cx2")
+region_enabled = true
+region_rect = Rect2(96, 64, 32, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+texture_filter = 1
+shape = SubResource("RectangleShape2D_8f8bm")
+one_way_collision = true
+
+[node name="Respawn" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Respawn")
+libraries = {
+"": SubResource("AnimationLibrary_1x3bo")
+}
+
+[node name="Falling_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8r6ib")
+
+[connection signal="timeout" from="Respawn" to="." method="_on_respawn_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

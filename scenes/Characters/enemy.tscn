@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cubokuke22wad"]
+[gd_scene load_steps=15 format=3 uid="uid://cubokuke22wad"]
 
 [ext_resource type="Texture2D" uid="uid://b4kq58jy3515k" path="res://assets/Characters/4 - Robo Pumpkin/Hurt (16 x 16).png" id="1_88kqm"]
 [ext_resource type="Script" path="res://scripts/Characters/enemy.gd" id="1_aybcl"]
 [ext_resource type="Texture2D" uid="uid://d4be11oielpqq" path="res://assets/Characters/4 - Robo Pumpkin/Walking (16 x 16).png" id="1_jwt8y"]
 [ext_resource type="Texture2D" uid="uid://irka4bugcl7i" path="res://assets/Characters/4 - Robo Pumpkin/Standing (16 x 16).png" id="2_uspva"]
 [ext_resource type="PackedScene" uid="uid://0wn13bx12tqy" path="res://scenes/utils/hitbox.tscn" id="5_2ns8i"]
+[ext_resource type="AudioStream" uid="uid://d36werqimy7uf" path="res://assets/sounds/death_enemy.wav" id="6_5g51d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7e5tx"]
 atlas = ExtResource("1_jwt8y")
@@ -47,14 +48,75 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_kuteh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_12wa5"]
+resource_name = "death"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iy2kc"]
+_data = {
+"RESET": SubResource("Animation_kuteh"),
+"death": SubResource("Animation_12wa5")
+}
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rlfht"]
 radius = 4.0
-height = 14.0
+height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ychim"]
 size = Vector2(10, 1.5)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_aybcl")
@@ -66,6 +128,11 @@ sprite_frames = SubResource("SpriteFrames_y4f3n")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iy2kc")
+}
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 rotation = 1.5708
@@ -73,7 +140,7 @@ shape = SubResource("CapsuleShape2D_rlfht")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(0, -7)
-target_position = Vector2(-8, 0)
+target_position = Vector2(-9, 0)
 collision_mask = 6
 
 [node name="Hitbox" parent="." instance=ExtResource("5_2ns8i")]
@@ -83,5 +150,8 @@ position = Vector2(0, 0)
 position = Vector2(0, -11.25)
 shape = SubResource("RectangleShape2D_ychim")
 debug_color = Color(0.992157, 0, 0.247059, 0.419608)
+
+[node name="Death_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_5g51d")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

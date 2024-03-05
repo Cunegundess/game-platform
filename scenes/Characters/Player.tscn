@@ -1,10 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://x7cn6mylrdwo"]
+[gd_scene load_steps=19 format=3 uid="uid://x7cn6mylrdwo"]
 
 [ext_resource type="Script" path="res://scripts/Characters/Player.gd" id="1_ia8of"]
 [ext_resource type="Texture2D" uid="uid://oj1p0i67700u" path="res://assets/Characters/2 - Mr. Mochi/Idle (32 x 32).png" id="1_oc34n"]
 [ext_resource type="Texture2D" uid="uid://dcxn3rg24eu6h" path="res://assets/Characters/2 - Mr. Mochi/Hurt (32 x 32).png" id="2_c2gqu"]
 [ext_resource type="Texture2D" uid="uid://c3l4fx2s5norc" path="res://assets/Characters/2 - Mr. Mochi/Jumping (32 x 32).png" id="3_4k3ji"]
 [ext_resource type="Texture2D" uid="uid://ccjmsyms0nxnd" path="res://assets/Characters/2 - Mr. Mochi/Running (32 x 32).png" id="4_183g5"]
+[ext_resource type="AudioStream" uid="uid://b0ro4vom2pk2" path="res://assets/sounds/jump.wav" id="6_e72fx"]
+[ext_resource type="AudioStream" uid="uid://druqn20h0plnt" path="res://assets/sounds/hurt.wav" id="7_2pllu"]
+[ext_resource type="AudioStream" uid="uid://b5t1h1ebg4lv" path="res://assets/sounds/death.wav" id="8_vmy22"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5atb"]
 atlas = ExtResource("1_oc34n")
@@ -81,12 +84,15 @@ animations = [{
 size = Vector2(13.5, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awvht"]
-size = Vector2(17, 15)
+size = Vector2(17.5, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0n2j"]
+size = Vector2(14, 2)
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 position = Vector2(0, -9)
-collision_mask = 6
+collision_mask = 94
 script = ExtResource("1_ia8of")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -107,10 +113,41 @@ collision_layer = 32
 collision_mask = 4
 
 [node name="Collision_Hurt" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -0.5)
+position = Vector2(0.25, -0.5)
 shape = SubResource("RectangleShape2D_awvht")
 debug_color = Color(0.976471, 0, 0.427451, 0.419608)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
 
+[node name="RayCast2D_right" type="RayCast2D" parent="."]
+position = Vector2(7, 1)
+target_position = Vector2(4, 0)
+collision_mask = 4
+
+[node name="RayCast2D_left" type="RayCast2D" parent="."]
+position = Vector2(-7, 1)
+target_position = Vector2(-4, 0)
+collision_mask = 4
+
+[node name="Head_collider" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 64
+
+[node name="Head_collision" type="CollisionShape2D" parent="Head_collider"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_u0n2j")
+debug_color = Color(0, 0.643137, 0.290196, 0.419608)
+
+[node name="Jump_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_e72fx")
+
+[node name="Hurt_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2pllu")
+volume_db = -5.0
+
+[node name="Death_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vmy22")
+volume_db = -5.0
+
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="Head_collider" to="." method="_on_head_collider_body_entered"]

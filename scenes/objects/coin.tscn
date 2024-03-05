@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://50d4rg7uf323"]
+[gd_scene load_steps=15 format=3 uid="uid://50d4rg7uf323"]
 
 [ext_resource type="Texture2D" uid="uid://c8f26v0r2nijh" path="res://assets/Common Pick-ups/Coin (16 x 16).png" id="1_8guo7"]
 [ext_resource type="Script" path="res://scripts/objects/coin.gd" id="1_diq3q"]
 [ext_resource type="Texture2D" uid="uid://dshiqhbd0pou0" path="res://assets/Effects/Yellow_Sparkle (16 x 16).png" id="2_f8p22"]
+[ext_resource type="AudioStream" uid="uid://c3cig5evyheop" path="res://assets/sounds/coin.wav" id="4_vqmkk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lodup"]
 atlas = ExtResource("2_f8p22")
@@ -74,18 +75,24 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pmjg1"]
-radius = 11.0
+radius = 9.0
 
 [node name="Coin" type="Area2D"]
 collision_layer = 8
 script = ExtResource("1_diq3q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_k0awt")
 autoplay = "default"
+frame_progress = 0.319705
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pmjg1")
+
+[node name="Coin_Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vqmkk")
+volume_db = -20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

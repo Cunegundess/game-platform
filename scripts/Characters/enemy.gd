@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
 @onready var animation = $AnimatedSprite2D
+@onready var animation_player = $AnimationPlayer
 @onready var wall_detector = $RayCast2D
+@onready var death_enemy_sound = $Death_Sound
+
+@export var enemy_score = 100
 
 var SPEED = 30.0
 
@@ -26,3 +30,8 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if animation.name == "hurt":
+		queue_free()
