@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.2)
+color = Color(0, 0, 0, 0.486275)
 
 [node name="menu_holder" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -43,7 +43,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_id1bx")
 theme_override_font_sizes/font_size = 16
-text = "RESUME"
+text = "CONTINUAR"
+metadata/_edit_use_anchors_ = true
 
 [node name="quit_button" type="TouchScreenButton" parent="menu_holder"]
 position = Vector2(0, 12)
@@ -63,7 +64,9 @@ grow_vertical = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_id1bx")
 theme_override_font_sizes/font_size = 16
-text = "QUIT GAME"
+text = "SAIR
+"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="menu_holder/pause_button" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="menu_holder/pause_button/pause" to="." method="_on_pause_pressed"]

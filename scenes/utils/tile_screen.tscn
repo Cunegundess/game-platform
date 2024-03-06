@@ -1,0 +1,286 @@
+[gd_scene load_steps=19 format=3 uid="uid://dr12ex631t11o"]
+
+[ext_resource type="Script" path="res://scripts/utils/tile_screen.gd" id="1_cysjw"]
+[ext_resource type="Texture2D" uid="uid://b56b6a62g1cvv" path="res://assets/Backgrounds/tile.png" id="1_ldm7v"]
+[ext_resource type="Texture2D" uid="uid://bqh8ytgr1hwka" path="res://assets/Backgrounds/game_logo.png" id="2_nxxr4"]
+[ext_resource type="FontFile" uid="uid://d8efdb58iymm" path="res://assets/Fonts/NbPixelFontBundle_v1_0/KarenFat.ttf" id="2_xkayy"]
+[ext_resource type="Texture2D" uid="uid://ccjmsyms0nxnd" path="res://assets/Characters/2 - Mr. Mochi/Running (32 x 32).png" id="6_8p8fc"]
+[ext_resource type="Texture2D" uid="uid://d4be11oielpqq" path="res://assets/Characters/4 - Robo Pumpkin/Walking (16 x 16).png" id="6_d7bjv"]
+[ext_resource type="AudioStream" uid="uid://mtl7iq7onyx6" path="res://assets/sounds/music_bg.wav" id="7_4ou0b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqdik"]
+atlas = ExtResource("6_8p8fc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvai2"]
+atlas = ExtResource("6_8p8fc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmusu"]
+atlas = ExtResource("6_8p8fc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpj3a"]
+atlas = ExtResource("6_8p8fc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rj7b0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqdik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvai2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmusu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpj3a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tu13b"]
+atlas = ExtResource("6_d7bjv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg4ts"]
+atlas = ExtResource("6_d7bjv")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_40wek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tu13b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg4ts")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_1vf5g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/HBoxContainer/Mochi:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/HBoxContainer/Mochi2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t2si0"]
+resource_name = "reveal"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BG:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/HBoxContainer/Mochi:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/HBoxContainer/Mochi2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xcwm5"]
+_data = {
+"RESET": SubResource("Animation_1vf5g"),
+"reveal": SubResource("Animation_t2si0")
+}
+
+[node name="TileScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cysjw")
+
+[node name="BG" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+offset_right = 1560.0
+offset_bottom = 720.0
+texture = ExtResource("1_ldm7v")
+expand_mode = 2
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="logo" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("2_nxxr4")
+
+[node name="start_button" type="TouchScreenButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+position = Vector2(103, 138)
+
+[node name="start" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/start_button"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_xkayy")
+theme_override_font_sizes/font_size = 16
+text = "INICIAR JOGO"
+metadata/_edit_use_anchors_ = true
+
+[node name="quit_button" type="TouchScreenButton" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+position = Vector2(103, 177)
+
+[node name="quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/quit_button"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_xkayy")
+theme_override_font_sizes/font_size = 16
+text = "SAIR DO JOGO"
+
+[node name="Mochi" type="AnimatedSprite2D" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
+position = Vector2(287, 117)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_rj7b0")
+autoplay = "default"
+frame_progress = 0.807276
+flip_h = true
+
+[node name="Mochi2" type="AnimatedSprite2D" parent="MarginContainer/HBoxContainer"]
+texture_filter = 1
+position = Vector2(-67, 156)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_40wek")
+autoplay = "default"
+frame_progress = 0.135764
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xcwm5")
+}
+autoplay = "reveal"
+
+[node name="BgMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_4ou0b")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/start_button/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/quit_button/quit" to="." method="_on_quit_pressed"]

@@ -16,11 +16,13 @@ var is_jumping = false
 var knockback_vector = Vector2.ZERO
 var is_hurted = false
 var direction
+var can_control = true
 
 signal player_has_died()
 
 
 func _physics_process(delta):
+	if !can_control: return
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
@@ -110,4 +112,10 @@ func _on_head_collider_body_entered(body):
 			body.animation_player.play("hit")
 			body.hit_block_sound.play()
 			body.create_coin()
-		
+
+
+func handle_danger():
+	visible = false
+	can_control = false
+	await get_tree().create_timer(.2).timeout
+	emit_signal("player_has_died")

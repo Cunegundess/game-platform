@@ -34,7 +34,7 @@ func _on_all_text_displayed():
 	
 
 func _unhandled_input(event):
-	if (event.is_action_pressed("advance_message") && is_message_active && can_advance_message):
+	if (event.is_action_pressed("advance_message") or event.is_action_pressed("interact") && is_message_active && can_advance_message):
 		dialog_box.queue_free()
 		current_line += 1
 		if current_line >= message_lines.size():

@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://b6jf086uf6a7p"]
+
+[ext_resource type="Script" path="res://scripts/objects/goal.gd" id="1_s2nqc"]
+[ext_resource type="Texture2D" uid="uid://k7r28sj0asu6" path="res://assets/Objects/brick-pieces/checkpoint.png" id="1_u5uji"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uy6b"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(0, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjhm6"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(18, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvauw"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(36, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3wk1"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(54, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pig7w"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(72, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hthgj"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(90, 0, 18, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lskoc"]
+atlas = ExtResource("1_u5uji")
+region = Rect2(108, 0, 18, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dpdm0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uy6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjhm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvauw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3wk1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pig7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hthgj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lskoc")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dyww"]
+size = Vector2(24, 27)
+
+[node name="Goal" type="Area2D"]
+collision_layer = 2
+script = ExtResource("1_s2nqc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -13)
+sprite_frames = SubResource("SpriteFrames_dpdm0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13.5)
+shape = SubResource("RectangleShape2D_2dyww")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
