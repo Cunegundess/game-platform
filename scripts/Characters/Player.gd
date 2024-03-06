@@ -2,8 +2,6 @@ extends CharacterBody2D
 
 @onready var animation = $AnimatedSprite2D
 @onready var remote_transform = $RemoteTransform2D
-@onready var raycast_left = $RayCast2D_left
-@onready var raycast_right = $RayCast2D_right
 @onready var jump_sound = $Jump_Sound
 @onready var hurt_sound = $Hurt_Sound
 @onready var death_sound = $Death_Sound
@@ -15,6 +13,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_jumping = false
 var knockback_vector = Vector2.ZERO
 var is_hurted = false
+var knockback_power = 20
 var direction
 var can_control = true
 
@@ -54,11 +53,8 @@ func _physics_process(delta):
 
 
 func _on_hurtbox_body_entered(body):
-	if raycast_left.is_colliding():
-		take_damage(Vector2(200, -200))
-	if raycast_right.is_colliding():
-		take_damage(Vector2(-200, -200))
-
+	var knockback = Vector2((global_position.x - body.global_position.x) * knockback_power, -200)
+	take_damage(knockback)
 
 func follow_camera(camera):
 	var camera_path = camera.get_path()

@@ -8,9 +8,9 @@ func _ready():
 	player.follow_camera(camera)
 	player.player_has_died.connect(game_over)
 	control.time_is_up.connect(game_over)
-	Globals.coins = 0
-	Globals.score = 0
-	Globals.player_life = 3
+	#Globals.coins = 0
+	#Globals.score = 0
+	#Globals.player_life = 3
 
 
 func reload_game():

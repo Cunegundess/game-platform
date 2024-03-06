@@ -110,7 +110,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rlfht"]
-radius = 4.0
+radius = 5.0
 height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ychim"]
@@ -134,7 +134,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_rlfht")
 
